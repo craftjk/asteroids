@@ -3,6 +3,7 @@
 
   var Ship = Asteroids.Ship = function(pos, vel) {
     Asteroids.MovingObject.call(this, pos, vel, Ship.RADIUS, Ship.COLOR);
+    this.frames = 0;
   }
 
   Ship.inherits(Asteroids.MovingObject);  
@@ -15,8 +16,11 @@
   }
   
   Ship.prototype.draw = function(canvas) {
-    var image  = document.getElementById("ship");
+    var frame = Math.floor(this.frames / 8)+1;
+    var image  = document.getElementById("nyan-" + frame);
     canvas.drawImage(image,this.posX,this.posY,70,40);
+    if (this.frames > 40) this.frames = 0;
+    else ++this.frames;
   }
   
   Ship.prototype.fireBullet = function(){
